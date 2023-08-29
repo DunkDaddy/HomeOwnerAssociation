@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}home{% endblock %}
+</head>
+<body>
+{% block h1 %}home{% endblock %}
+{% block form %}
+    <form method="post" action="">
+    {% csrf_token %}
+    {{login.as_p}}
+    <button type="submit" class="btn btn-primary">register</button>
+    </form>
+{% endblock %}
+{% block body %}
+<h1>hi</h1>
+<br>
+<h1>hallo</h1>
+{% endblock %}
+</body>
+</html>

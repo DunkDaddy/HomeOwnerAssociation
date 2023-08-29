@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "HOAApi",
+    "HOAHomepage",
     "rest_framework",
     "rest_framework.authtoken",
+    "bootstrap5",
 ]
 
 MIDDLEWARE = [
