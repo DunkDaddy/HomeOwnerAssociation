@@ -28,4 +28,6 @@ urlpatterns = [
     path('Ldelete/<int:pk>/', location_delete),
     path('Rdelete/<int:pk>/', regler_delete),
     path('Adelete/<int:pk>/', andmeldelse_delete),
+
+    path('password/', password_check)
 ]

@@ -6,10 +6,27 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.hashers import check_password
 # Create your views here.
 
 
 ############# Beboer
+
+@api_view(['POST'])
+def password_check(request):
+    serializer = BeboerSerializer(data=request.data)
+    if serializer.is_valid():
+        x = Beboer.objects.get(brugernavn=serializer.data['brugernavn'])
+        if check_password(serializer.data['password'], x.password):
+            return JsonResponse({'valid': 'True'})
+        else:
+            return JsonResponse({'valid': 'False'})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def beboer_liste(request):
