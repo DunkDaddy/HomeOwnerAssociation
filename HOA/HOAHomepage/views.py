@@ -11,18 +11,22 @@ def loginp(response):
     registrer = RegistrerForm
     login = LoginForm
     return render(response, "homepage.html", {"login": login, "registrer": registrer})
-
 def home(response):
     loginpage = loginp(response)
     if response.method == "POST":
+        x = ""
         registrer = RegistrerForm(response.POST)
+        beboerListe = Beboer.objects.all()
         if registrer.is_valid():
-            beboer = Beboer(navn=registrer.cleaned_data['navn'], adresse=registrer.cleaned_data['adresse'], tlf=registrer.cleaned_data['tlf'], brugernavn=registrer.cleaned_data['brugernavn'], password=make_password(registrer.cleaned_data['password']), mail=registrer.cleaned_data['mail'])
-            beboer.save()
-            return loginpage
+            try:
+                x = Beboer.objects.get(brugernavn=registrer.cleaned_data['brugernavn'])
+                return loginpage
+            except:
+                beboer = Beboer(navn=registrer.cleaned_data['navn'], adresse=registrer.cleaned_data['adresse'], tlf=registrer.cleaned_data['tlf'], brugernavn=registrer.cleaned_data['brugernavn'], password=make_password(registrer.cleaned_data['password']), mail=registrer.cleaned_data['mail'])
+                beboer.save()
+                return render(response, 'success.html')
         login = LoginForm(response.POST)
         if login.is_valid():
-            beboerListe = Beboer.objects.all()
             for person in beboerListe:
                 if login.cleaned_data['brugernavn'] == person.brugernavn and check_password(login.cleaned_data['password'], person.password) == True:
                     return render(response, 'success.html')

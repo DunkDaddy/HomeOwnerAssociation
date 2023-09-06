@@ -14,6 +14,7 @@ class Beboer(models.Model):
 class Location(models.Model):
     lattitude = models.DecimalField(max_digits=8, decimal_places=6)
     longtitude = models.DecimalField(max_digits=9, decimal_places=6)
+    #altitude = models
 
 
 class Regler(models.Model):

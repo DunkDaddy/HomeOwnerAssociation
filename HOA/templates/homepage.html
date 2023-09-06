@@ -10,12 +10,20 @@
 {% block form %}
     <form method="post" action="">
     {% csrf_token %}
-    {{login.as_p}}
-    <button type="submit" class="btn btn-primary">register</button>
+    {{registrer.as_p}}
+    <button type="submit" class="btn btn-primary">Register</button>
     </form>
 {% endblock %}
 {% block body %}
 <h1>hi</h1>
+<br>
+    <center>
+        <form method="post" action="">
+        {% csrf_token %}
+        {{login.as_p}}
+        <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </center>
 <br>
 <h1>hallo</h1>
 {% endblock %}

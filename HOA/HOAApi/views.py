@@ -16,10 +16,14 @@ from django.contrib.auth.hashers import check_password
 def password_check(request):
     serializer = BeboerSerializer(data=request.data)
     if serializer.is_valid():
-        x = Beboer.objects.get(brugernavn=serializer.data['brugernavn'])
-        if check_password(serializer.data['password'], x.password):
-            return JsonResponse({'valid': 'True'})
-        else:
+        try:
+            x = Beboer.objects.get(brugernavn=serializer.data['brugernavn'])
+            try:
+                check_password(serializer.data['password'], x.password)
+                return JsonResponse(check_password)
+            except:
+                return JsonResponse({'valid': 'False'})
+        except:
             return JsonResponse({'valid': 'False'})
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
