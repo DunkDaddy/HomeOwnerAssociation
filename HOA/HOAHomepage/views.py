@@ -29,7 +29,9 @@ def home(response):
         if login.is_valid():
             for person in beboerListe:
                 if login.cleaned_data['brugernavn'] == person.brugernavn and check_password(login.cleaned_data['password'], person.password) == True:
-                    return render(response, 'success.html')
+
+                    andmeldelse = Andmeldelse.objects.all()
+                    return render(response, 'success.html', {"Andmeldelser": andmeldelse, "person": person})
 
     if response.method == "GET":
         return loginpage

@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,21 @@
     <title>SUCCES</title>
 </head>
 <body>
-<h1>YOU DID IT</h1>
+
+{% block h1 %}Success{% endblock %}
+
+{% block body %}
+<!--<iframe src="https://goo.gl/maps/x8JoVYzSKmJZs6yw8" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
+    {% for andmeldelse in Andmeldelser %}
+        {% if person.id == andmeldelse.andmelder_id.id %}
+            <ul>du har lavet en anklage angående {{andmeldelse.regel_id.regel}}</ul>
+            <br>
+        {% else %}
+            <br>
+            <ul>nogle andre har lavet en anklage angående {{andmeldelse.regel_id.regel}}</ul>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
 </body>
 </html>

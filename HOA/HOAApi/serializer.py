@@ -7,12 +7,12 @@ class BeboerSerializer(serializers.ModelSerializer):
         model = Beboer
         fields = '__all__'
 
-
+'''
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = '__all__'
-
+'''
 
 class ReglerSerializer(serializers.ModelSerializer):
     class Meta:

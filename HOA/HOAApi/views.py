@@ -81,6 +81,7 @@ def beboer_delete(request, pk):
 
 
 ############# Location
+'''
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def location_liste(request):
@@ -127,6 +128,7 @@ def location_delete(request, pk):
     l.delete()
 
     return Response('location Deleted Successfully')
+    '''
 ############# Location_Slut
 
 
