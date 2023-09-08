@@ -2,6 +2,11 @@ from rest_framework import serializers
 from .models import *
 
 
+class PasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Beboer
+        fields = ('brugernavn', 'password')
+
 class BeboerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Beboer

@@ -6,25 +6,28 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 # Create your views here.
 
 
 ############# Beboer
-
+fail = JsonResponse({'valid': 'False'})
+fail2 = Response(False)
 @api_view(['POST'])
 def password_check(request):
-    serializer = BeboerSerializer(data=request.data)
+    serializer = PasswordSerializer(data=request.data)
     if serializer.is_valid():
         try:
-            x = Beboer.objects.get(brugernavn=serializer.data['brugernavn'])
+            x = Beboer.objects.get(brugernavn=serializer.validated_data['brugernavn'])
             try:
-                check_password(serializer.data['password'], x.password)
-                return JsonResponse(check_password)
+                 if check_password(serializer.validated_data['password'], x.password):
+                    return Response(True)
+                 else:
+                     return fail2
             except:
-                return JsonResponse({'valid': 'False'})
+                return fail2
         except:
-            return JsonResponse({'valid': 'False'})
+            return fail2
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -44,6 +47,7 @@ def beboer_liste(request):
 def beboer_create(request):
     serializer = BeboerSerializer(data=request.data)
     if serializer.is_valid():
+        serializer.validated_data['password'] = make_password(serializer.validated_data['password'])
         serializer.save()
         return Response(serializer.data)
     else:
