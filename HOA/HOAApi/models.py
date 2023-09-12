@@ -33,4 +33,5 @@ class Andmeldelse(models.Model):
     regel_id = models.ForeignKey(Regler, on_delete=models.CASCADE)
     lattitude = models.DecimalField(max_digits=9, decimal_places=6)
     longtitude = models.DecimalField(max_digits=9, decimal_places=6)
+    photo = models.ImageField(upload_to='media/images', null=True)
 
